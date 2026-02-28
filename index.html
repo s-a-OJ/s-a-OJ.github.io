@@ -704,26 +704,26 @@
 
     /* 链接下划线动画 */
     a:not(.btn):not(.sidebar a):not(.breadcrumb a) {
-      transition: all .15s ease;
-      color: #005C97;
-      position: relative;
-    }
-    a:not(.btn):not(.sidebar a):not(.breadcrumb a)::after {
-      content: "";
-      width: 0;
-      height: 4px;
-      background: rgba(81, 231, 234, .7);
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transition: all .3s;
-    }
-    a:not(.btn):not(.sidebar a):not(.breadcrumb a):hover::after {
-      left: 0%;
-      width: 100%;
+        color: var(--theme-primary);
+        text-decoration: none !important;
+        position: relative;
+        transition: color 0.2s ease;
     }
     a:not(.btn):not(.sidebar a):not(.breadcrumb a):hover {
-      color: #fa4b4b;
+        color: var(--theme-primary-light) !important;
+    }
+    a:not(.btn):not(.sidebar a):not(.breadcrumb a)::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: currentColor;
+        transition: width 0.3s ease;
+    }
+    a:not(.btn):not(.sidebar a):not(.breadcrumb a):hover::after {
+        width: 100%;
     }
     .sidebar a,
     .breadcrumb a {
