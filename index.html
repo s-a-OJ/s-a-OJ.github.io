@@ -575,96 +575,6 @@
     .card-tag { background: #f1f5f9; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; color: #475569; }
     .card-action { color: #fa4b4b; text-decoration: none; font-weight: 500; }
 
-    /* 用户页面 */
-    .user-stats { display: flex; gap: 24px; margin: 24px 0; }
-    .stat-card { background: white; padding: 20px 28px; border-radius: 24px; flex: 1; display: flex; align-items: center; gap: 16px; }
-    .stat-icon { font-size: 2rem; color: #fa4b4b; }
-    .stat-number { font-size: 2rem; font-weight: 600; }
-    .stat-label { color: #64748b; }
-    .user-controls { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin: 24px 0; }
-    .user-search-box { flex: 1; display: flex; align-items: center; background: white; border-radius: 60px; padding: 8px 20px; border: 1px solid #e2e8f0; }
-    .user-search-box i { color: #94a3b8; }
-    .user-search-box input { flex: 1; border: none; outline: none; }
-    .view-toggles { display: flex; gap: 8px; }
-    .view-toggle { padding: 8px 16px; border-radius: 30px; background: white; border: 1px solid #e2e8f0; cursor: pointer; }
-    .view-toggle.active { background: #fa4b4b; color: white; border-color: #fa4b4b; }
-    .refresh-btn { padding: 8px 16px; border-radius: 30px; background: white; border: 1px solid #e2e8f0; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-    .refresh-btn:hover { background: #f1f5f9; }
-    .user-list { background: white; border-radius: 28px; padding: 16px; }
-    .user-item { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-bottom: 1px solid #ecf1f6; }
-    .user-item:last-child { border-bottom: none; }
-    .user-avatar { 
-      width: 44px; 
-      height: 44px; 
-      border-radius: 18px; 
-      background: #fbdfdf; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      overflow: hidden; /* 确保图片不溢出圆角 */
-    }
-    .user-info { flex: 1; display: flex; justify-content: space-between; align-items: center; }
-    .user-name { font-weight: 500; }
-    .user-name a { text-decoration: none; color: #1e293b; }
-    .user-status { display: flex; align-items: center; gap: 6px; }
-    .status-online { color: #10b981; }
-    .status-offline { color: #94a3b8; }
-    .last-seen { font-size: 0.9rem; color: #64748b; }
-
-    /* 分页控件 ———— 仿amlg.top */
-    .user-list-footer {
-      margin-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .pagination-info {
-      color: #64748b;
-      font-size: 0.95rem;
-    }
-    .pagination-controls {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .pagination-btn {
-      min-width: 36px;
-      height: 36px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 8px;
-      border-radius: 30px;
-      background: white;
-      border: 1px solid #e2e8f0;
-      color: #334155;
-      cursor: pointer;
-      transition: 0.15s;
-      font-size: 0.95rem;
-    }
-    .pagination-btn:hover:not(:disabled) {
-      background: #fa4b4b;
-      color: white;
-      border-color: #fa4b4b;
-    }
-    .pagination-btn.active {
-      background: #fa4b4b;
-      color: white;
-      border-color: #fa4b4b;
-    }
-    .pagination-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .pagination-ellipsis {
-      background: transparent;
-      border: none;
-      cursor: default;
-      color: #94a3b8;
-    }
-
     /* 关于页 */
     .about-section { background: white; border-radius: 28px; padding: 28px; margin-bottom: 28px; }
     .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
@@ -949,19 +859,18 @@
             </section>
             <section class="about-section">
               <div class="section-header">
-		<i class="fab fa-github"></i>
-		  <h2>开源与贡献</h2>
-		    </div>
-		      <div class="section-content">
-		        <div class="open-source-info">
-			    <a href="https://www.luogu.com.cn/article/1tfy30nh" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-			  <i class="fas fa-comment"></i>
-			前往洛谷发布反馈
-		      </a>
-		    </div>
-		  </div>
-		</div>
-	     </section>
+                <i class="fab fa-github"></i>
+                <h2>开源与贡献</h2>
+              </div>
+              <div class="section-content">
+                <div class="open-source-info">
+                  <a href="https://www.luogu.com.cn/article/1tfy30nh" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                    <i class="fas fa-comment"></i>
+                    前往洛谷发布反馈
+                  </a>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </main>
@@ -984,7 +893,6 @@
       } else {
         app.classList.add('visible');
       }
-
 
       const overlay = document.getElementById('sidebarOverlay');
       const sidebar = document.getElementById('sidebar');
@@ -1041,15 +949,15 @@
 
     function switchPage(pageId) {
       navItems.forEach(item => item.classList.toggle('active', item.dataset.page === pageId));
-      const pageNames = { home:'首页', explore:'探索', users:'用户', about:'关于' };
-      breadcrumb.innerHTML = `<a href="#${pageId}" class="breadcrumb-item"><i class="fas fa-${pageId === 'home' ? 'home' : (pageId==='explore'?'compass':(pageId==='users'?'users':'info-circle'))}"></i><span>${pageNames[pageId]}</span></a>`;
+      const pageNames = { home:'首页', explore:'探索', about:'关于' };
+      breadcrumb.innerHTML = `<a href="#${pageId}" class="breadcrumb-item"><i class="fas fa-${pageId === 'home' ? 'home' : (pageId==='explore'?'compass':'info-circle')}"></i><span>${pageNames[pageId]}</span></a>`;
       pages.forEach(p => p.classList.remove('active'));
       document.getElementById(`${pageId}-page`).classList.add('active');
     }
 
     window.addEventListener('hashchange', () => {
       const hash = location.hash.slice(1) || 'home';
-      if (['home','explore','users','about'].includes(hash)) switchPage(hash);
+      if (['home','explore','about'].includes(hash)) switchPage(hash);
     });
     const initialHash = location.hash.slice(1) || 'home';
     pages.forEach(p => p.classList.remove('active'));
@@ -1241,210 +1149,6 @@
     // 开始获取数据
     fetchExploreData();
 
-    // ---------- 用户页 从Supabase获取真实数据 ----------
-    const userListEl = document.getElementById('userList');
-    const totalSpan = document.getElementById('total-users');
-    const onlineSpan = document.getElementById('online-users');
-    const lastUpdatedSpan = document.getElementById('last-updated');
-    const userSearchInput = document.getElementById('userSearchInput');
-    const viewToggles = document.querySelectorAll('.view-toggle');
-    const refreshBtn = document.getElementById('refreshUsersBtn');
-    const paginationInfo = document.getElementById('paginationInfo');
-    const paginationControls = document.getElementById('paginationControls');
-
-    let allUsers = [];
-    let filteredUsers = [];
-    let currentPage = 1;
-    const pageSize = 10;
-    let currentView = 'all';
-    let searchTerm = '';
-
-    function formatLastSeen(isoString) {
-      if (!isoString) return '未知';
-      const lastDate = new Date(isoString);
-      const now = new Date();
-      const diffMs = now - lastDate;
-      const diffMins = Math.floor(diffMs / 60000);
-      const diffHours = Math.floor(diffMs / 3600000);
-      const diffDays = Math.floor(diffMs / 86400000);
-
-      if (diffMins < 1) return '刚刚';
-      if (diffMins < 60) return diffMins + '分钟前';
-      if (diffHours < 24) return diffHours + '小时前';
-      if (diffDays < 30) return diffDays + '天前';
-      return lastDate.toLocaleDateString('zh-CN');
-    }
-
-    function isOnline(lastSeenIso) {
-      if (!lastSeenIso) return false;
-      const lastDate = new Date(lastSeenIso);
-      const now = new Date();
-      const diffMs = now - lastDate;
-      return diffMs < 5 * 60 * 1000; // 5分钟
-    }
-
-    async function fetchRealUsers() {
-      try {
-        const API_URL = 'https://ktwhwvafywwekfkvskbk.supabase.co/rest/v1/user_status?select=uid,last_seen';
-        const response = await fetch(API_URL, {
-          headers: {
-            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0d2h3dmFmeXd3ZWtma3Zza2JrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg2OTU1NDgsImV4cCI6MjA4NDI3MTU0OH0.tSCRz7ENeCT3NXt891equmSBfW_UsXHUdKSVMoxveKQ',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0d2h3dmFmeXd3ZWtma3Zza2JrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg2OTU1NDgsImV4cCI6MjA4NDI3MTU0OH0.tSCRz7ENeCT3NXt891equmSBfW_UsXHUdKSVMoxveKQ'
-          }
-        });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json(); // 直接是数组
-
-        allUsers = data.map(u => ({
-          uid: u.uid,
-          name: `UID ${u.uid}`,
-          online: isOnline(u.last_seen),
-          lastSeen: formatLastSeen(u.last_seen),
-          rawLastSeen: u.last_seen,
-          avatar: 'fas fa-user' // 保留原字段但不再使用
-        }));
-
-        allUsers.sort((a, b) => new Date(b.rawLastSeen) - new Date(a.rawLastSeen));
-
-        const total = allUsers.length;
-        const online = allUsers.filter(u => u.online).length;
-        totalSpan.textContent = total;
-        onlineSpan.textContent = online;
-        lastUpdatedSpan.textContent = new Date().toLocaleTimeString('zh-CN', { hour12: false, hour: '2-digit', minute: '2-digit' });
-
-        currentPage = 1;
-        currentView = 'all';
-        searchTerm = '';
-        userSearchInput.value = '';
-        document.querySelectorAll('.view-toggle').forEach(btn => btn.classList.toggle('active', btn.dataset.view === 'all'));
-
-        filterUsers();
-        renderPagination();
-        renderUserList();
-      } catch (error) {
-        console.error('获取用户数据失败:', error);
-        userListEl.innerHTML = `<div class="loading-text">加载失败，请稍后重试。${error.message}</div>`;
-      }
-    }
-
-    function filterUsers() {
-      filteredUsers = allUsers.filter(u => {
-        const matchSearch = searchTerm === '' || u.name.toLowerCase().includes(searchTerm) || String(u.uid).includes(searchTerm);
-        if (!matchSearch) return false;
-        if (currentView === 'online') return u.online;
-        if (currentView === 'offline') return !u.online;
-        return true;
-      });
-    }
-
-    function renderPagination() {
-      const totalFiltered = filteredUsers.length;
-      const totalPages = Math.ceil(totalFiltered / pageSize) || 1;
-      if (currentPage > totalPages) currentPage = totalPages;
-      if (currentPage < 1) currentPage = 1;
-
-      const start = (currentPage - 1) * pageSize + 1;
-      const end = Math.min(currentPage * pageSize, totalFiltered);
-      paginationInfo.textContent = totalFiltered === 0 ? '没有匹配的用户' : `显示第 ${start}–${end} 个用户，共 ${totalFiltered} 个用户`;
-
-      let html = `<button class="pagination-btn" ${currentPage === 1 ? 'disabled' : ''} data-page="prev"><i class="fas fa-chevron-left"></i> 上一页</button>`;
-
-      const maxVisible = 5;
-      let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-      let endPage = Math.min(totalPages, startPage + maxVisible - 1);
-      if (endPage - startPage + 1 < maxVisible) {
-        startPage = Math.max(1, endPage - maxVisible + 1);
-      }
-
-      if (startPage > 1) {
-        html += `<button class="pagination-btn" data-page="1">1</button>`;
-        if (startPage > 2) html += `<span class="pagination-btn pagination-ellipsis">...</span>`;
-      }
-      for (let i = startPage; i <= endPage; i++) {
-        html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
-      }
-      if (endPage < totalPages) {
-        if (endPage < totalPages - 1) html += `<span class="pagination-btn pagination-ellipsis">...</span>`;
-        html += `<button class="pagination-btn" data-page="${totalPages}">${totalPages}</button>`;
-      }
-
-      html += `<button class="pagination-btn" ${currentPage === totalPages ? 'disabled' : ''} data-page="next">下一页 <i class="fas fa-chevron-right"></i></button>`;
-      paginationControls.innerHTML = html;
-
-      paginationControls.querySelectorAll('.pagination-btn[data-page]').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          if (btn.hasAttribute('disabled')) return;
-          const page = btn.dataset.page;
-          if (page === 'prev') changePage(currentPage - 1);
-          else if (page === 'next') changePage(currentPage + 1);
-          else changePage(parseInt(page));
-        });
-      });
-    }
-
-    function renderUserList() {
-      const start = (currentPage - 1) * pageSize;
-      const pageUsers = filteredUsers.slice(start, start + pageSize);
-      
-      userListEl.innerHTML = pageUsers.map(u => {
-        const avatarUrl = `https://cdn.luogu.com.cn/upload/usericon/${u.uid}.png`;
-        return `
-          <div class="user-item">
-            <div class="user-avatar">
-              <img src="${avatarUrl}" 
-                   alt="${u.name}的头像" 
-                   loading="lazy"
-                   onerror="this.onerror=null; this.src='https://cdn.luogu.com.cn/upload/usericon/default.png'; this.classList.add('fallback')"
-                   style="width: 100%; height: 100%; object-fit: cover; border-radius: 18px;">
-            </div>
-            <div class="user-info">
-              <span class="user-name"><a href="https://www.luogu.com.cn/user/${u.uid}" target="_blank">${u.name}</a></span>
-              <span class="user-status ${u.online ? 'status-online' : 'status-offline'}">
-                <i class="${u.online ? 'fas fa-wifi' : 'fas fa-power-off'}"></i> ${u.online ? '在线' : '离线'}
-                <span class="last-seen">${u.lastSeen}</span>
-              </span>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function changePage(newPage) {
-      const totalPages = Math.ceil(filteredUsers.length / pageSize) || 1;
-      if (newPage < 1 || newPage > totalPages) return;
-      currentPage = newPage;
-      renderUserList();
-      renderPagination();
-    }
-
-    userSearchInput.addEventListener('input', (e) => {
-      searchTerm = e.target.value.toLowerCase().trim();
-      currentPage = 1;
-      filterUsers();
-      renderPagination();
-      renderUserList();
-    });
-
-    viewToggles.forEach(btn => {
-      btn.addEventListener('click', function() {
-        viewToggles.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        currentView = this.dataset.view;
-        currentPage = 1;
-        filterUsers();
-        renderPagination();
-        renderUserList();
-      });
-    });
-
-    refreshBtn.addEventListener('click', () => {
-      userListEl.innerHTML = `<div class="loading-text"><span class="loading-spinner"></span> 刷新用户数据...</div>`;
-      fetchRealUsers();
-    });
-
-    fetchRealUsers();
-    setInterval(fetchRealUsers, 30000);
-
     // ---------- 版本号获取 ----------
     async function fetchSAVersion() {
       const versionSpan = document.getElementById('sa-oj-version');
@@ -1468,6 +1172,7 @@
       }
       versionSpan.innerHTML = '无法获取版本号，请 <a href="' + targetUrl + '" target="_blank">点击下载 CSS</a> 查看 @version 行。';
     }
+
     fetchSAVersion();
   })();
 </script>
