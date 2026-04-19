@@ -15,6 +15,14 @@
       "link": "/contribute",
       "linkText": "投稿指南",
       "active": true
+    },
+    {
+      "id": 3,
+      "title": "重要：服务器维护通知",
+      "content": "本周六凌晨 2:00-4:00 进行升级，届时可能短暂无法访问。",
+      "link": null,
+      "linkText": null,
+      "active": true
     }
   ]
 }
