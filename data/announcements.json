@@ -2,27 +2,37 @@
   "announcements": [
     {
       "id": 1,
-      "title": "🎉 样式库全面升级",
-      "content": "新增暗色主题和响应式布局，刷题体验更舒适。",
+      "title": "🎉 样式库升级",
+      "content": "暗色主题已上线",
       "link": "/changelog",
-      "linkText": "查看更新日志",
-      "active": true
+      "linkText": "查看详情",
+      "active": true,
+      "bg": {
+        "type": "gradient",
+        "value": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+      }
     },
     {
       "id": 2,
-      "title": "社区投稿通道开启",
-      "content": "欢迎提交您的样式作品，优秀作品将收录至推荐列表。",
+      "title": "社区投稿",
+      "content": "欢迎分享你的样式作品",
       "link": "/contribute",
       "linkText": "投稿指南",
-      "active": true
+      "active": true,
+      "bg": {
+        "type": "color",
+        "value": "#fa4b4b"
+      }
     },
     {
       "id": 3,
-      "title": "重要：服务器维护通知",
-      "content": "本周六凌晨 2:00-4:00 进行升级，届时可能短暂无法访问。",
-      "link": null,
-      "linkText": null,
-      "active": true
+      "title": "服务器维护",
+      "content": "本周六凌晨 2:00-4:00 维护",
+      "active": true,
+      "bg": {
+        "type": "image",
+        "value": "https://example.com/bg.jpg"
+      }
     }
   ]
 }
