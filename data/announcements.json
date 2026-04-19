@@ -1,0 +1,12 @@
+{
+  "announcements": [
+    {
+      "id": 1,
+      "title": "（开发中）更新日志界面",
+      "content": "我们整了一个更新日志界面，详见此。",
+      "link": "/changelog",
+      "linkText": "查看详情",
+      "active": true
+    }
+  ]
+}
