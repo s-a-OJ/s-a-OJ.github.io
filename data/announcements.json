@@ -1,28 +1,20 @@
 {
   "announcements": [
     {
-      "id": 3,
-      "title": "🎉 样式库大更新",
-      "content": "新增暗色主题和响应式布局，欢迎体验！",
+      "id": 1,
+      "title": "🎉 样式库全面升级",
+      "content": "新增暗色主题和响应式布局，刷题体验更舒适。",
       "link": "/changelog",
-      "linkText": "查看详情",
+      "linkText": "查看更新日志",
       "active": true
     },
     {
       "id": 2,
       "title": "社区投稿通道开启",
-      "content": "您也可以提交自己的样式作品了，详见说明。",
+      "content": "欢迎提交您的样式作品，优秀作品将收录至推荐列表。",
       "link": "/contribute",
       "linkText": "投稿指南",
       "active": true
-    },
-    {
-      "id": 1,
-      "title": "旧版公告示例",
-      "content": "这是一条示例公告，您可以编辑或删除。",
-      "link": null,
-      "linkText": null,
-      "active": false
     }
   ]
 }
