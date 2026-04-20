@@ -1165,7 +1165,7 @@
     </div>
 
     <footer class="site-footer">
-      <p>© 2013-2026 S&amp;A. All rights reserved.</p>
+      <p>© 2013-当前 S&A. All rights reserved.</p>
     </footer>
 
   </div>
@@ -1700,6 +1700,16 @@
   }
   init();
 })();
+// 更新底栏年份为当前年份
+function updateFooterYear() {
+  const footer = document.querySelector('.site-footer p');
+  if (footer) {
+    const currentYear = new Date().getFullYear();
+    footer.innerHTML = `© 2013-${currentYear} S&A. All rights reserved.`;
+  }
+}
+// 页面加载完成后执行
+window.addEventListener('DOMContentLoaded', updateFooterYear);
 </script>
 </body>
 </html>
