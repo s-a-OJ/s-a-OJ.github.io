@@ -28,8 +28,8 @@
       "content": "我们将仿照氧洛谷来重构样式，将对用户进行更好的个性化体验。",
       "active": true,
       "bg": {
-        "type": "image",
-        "value": "#fa4b4b"
+        "type": "color",
+        "value": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
       }
     }
   ]
