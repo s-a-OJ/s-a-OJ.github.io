@@ -1333,15 +1333,13 @@
       const hash = location.hash.slice(1) || 'home';
       if (['home','explore','about','changelog'].includes(hash)) switchPage(hash);
     });
-    const initialHash = location.hash.slice(1) || 'home';
-    if (['home','explore','about','changelog'].includes(initialHash)) {
-      pages.forEach(p => p.classList.remove('active'));
-      document.getElementById(`${initialHash}-page`).classList.add('active');
-      navItems.forEach(item => item.classList.toggle('active', item.dataset.page === initialHash));
-      if (initialHash === 'changelog') ensureChangelogLoaded();
-    } else {
-      switchPage('home');
-    }
+// 页面初始化：根据当前 hash 切换到对应页面
+const initialHash = location.hash.slice(1) || 'home';
+if (['home', 'explore', 'about', 'changelog'].includes(initialHash)) {
+  switchPage(initialHash);
+} else {
+  switchPage('home');
+}
     navItems.forEach(item => {
       item.addEventListener('click', (e) => {
         if (item.id === 'downloadNavBtn') {
