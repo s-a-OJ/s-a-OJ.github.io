@@ -15,9 +15,9 @@
       "title": "更新日志",
       "content": "我们新整了一个更新日志界面！",
       "link": "#changelog",
-      "linkText": "查看",.
-      "active": true,.
-      "bg": {.
+      "linkText": "查看",
+      "active": true,
+      "bg": {
         "type": "color",
         "value": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
       }
