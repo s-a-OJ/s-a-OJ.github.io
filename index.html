@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
   <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="https://s-a-oj.github.io/assets/S&A_Logo_Horizontal.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +13,7 @@
     /* 字体导入 */
     @import url('https://cdn.jsdmirror.com/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css');
 
-    /* ===== 加载动画（三角形内嵌 & 符号）===== */
+    /* ===== 加载动画 ===== */
     #loader-wrapper {
       position: fixed;
       top: 0;
@@ -294,6 +296,24 @@
       text-decoration: none;
       font-size: 0.98rem;
     }
+    /* 顶栏下载按钮样式 */
+    .topbar-download-btn {
+      background: none;
+      border: none;
+      color: #fa4b4b;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 30px;
+      transition: background 0.2s;
+    }
+    .topbar-download-btn:hover {
+      background: #fff2f2;
+    }
     .logo-img {
       height: 36px;
       width: auto;
@@ -318,18 +338,18 @@
       margin-left: 80px;
     }
 
-    /* 页面容器 (已修改为display切换) */
+    /* 页面容器 */
     .pages-container {
       position: relative;
       flex: 1;
     }
     .content {
-      display: none;            /* 默认隐藏，不占高度 */
+      display: none;
       padding: 32px 0;
       background: #f5f7fa;
     }
     .content.active {
-      display: block;           /* 激活才显示 */
+      display: block;
       animation: fadeIn 0.3s ease;
     }
     @keyframes fadeIn {
@@ -469,6 +489,30 @@
       line-height: 1.6;
       position: relative;
       z-index: 2;
+    }
+
+    /* 下载按钮样式 */
+    .btn-download {
+      background: white;
+      color: #fa4b4b;
+      border: none;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 40px;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      z-index: 2;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-download:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: #fef9f9;
     }
 
     .section-title i {
@@ -686,26 +730,221 @@
         margin: 20px 0 10px;
     }
 
-.fa-solid.fa-spinner.fa-spin{
-    font-size: 2.5rem;
-    color: #fa4b4b;
+    .fa-solid.fa-spinner.fa-spin{
+        font-size: 2.5rem;
+        color: #fa4b4b;
+    }
+
+    #loader-spinner {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    /* 底栏样式 */
+    .site-footer {
+        background: white;
+        border-top: 1px solid #edf2f7;
+        padding: 24px 20px;
+        text-align: center;
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-top: 40px;
+    }
+    .site-footer a {
+        color: #fa4b4b;
+        text-decoration: none;
+    }
+    .site-footer a:hover {
+        text-decoration: underline;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      .site-footer {
+        margin-top: 20px;
+        padding: 16px;
+      }
+    }
+/* 顶部轮播公告栏 - 块状卡片样式，平滑淡入淡出 */
+#top-announcement-carousel {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
 }
 
-#loader-spinner {
-    display: flex !important;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+.carousel-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;               /* 卡片自带内边距，容器不留白 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Grid 重叠容器，高度由当前 active 卡片撑开 */
+.carousel-slides {
+  flex: 1;
+  display: grid;
+  position: relative;
+}
+
+.carousel-item {
+  grid-area: 1 / 1 / 2 / 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  line-height: 1.5;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  pointer-events: none;
+  
+  /* 块状卡片样式 */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* 默认渐变，会被 JS 覆盖 */
+  border-radius: 16px;
+  padding: 14px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  color: white;
+}
+
+.carousel-item.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.carousel-item .announcement-text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.carousel-item strong {
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.carousel-item a {
+  color: #ffecb3;
+  text-decoration: underline;
+  margin-left: 8px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.carousel-item a:hover {
+  color: white;
+}
+
+/* 计数器样式 */
+.carousel-counter {
+  background: rgba(0, 0, 0, 0.08);
+  padding: 4px 12px;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  color: #4b5563;
+  backdrop-filter: blur(4px);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .carousel-wrapper {
+    padding: 0;
+  }
+  .carousel-item {
+    padding: 10px 16px;
+    gap: 12px;
+  }
+  .carousel-item .announcement-text {
+    gap: 6px;
+  }
+  .carousel-item a {
+    white-space: normal;
+  }
+  .carousel-counter {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+  }
+}
+
+/* 更新日志页面样式 */
+.changelog-container {
+  background: white;
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.03);
+  margin-top: 20px;
+}
+
+.changelog-container h2 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid #fa4b4b;
+  display: inline-block;
+}
+
+.changelog-container h3 {
+  margin: 1.2em 0 0.5em;
+  color: #1e2a3a;
+}
+
+.changelog-container ul, .changelog-container ol {
+  padding-left: 1.8em;
+  margin: 0.8em 0;
+}
+
+.changelog-container li {
+  margin: 0.4em 0;
+  line-height: 1.6;
+}
+
+.changelog-container p {
+  margin: 0.8em 0;
+  line-height: 1.6;
+}
+
+.changelog-container code {
+  background: #f1f5f9;
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  font-family: monospace;
+}
+
+.changelog-container pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .changelog-container {
+    padding: 20px;
+  }
 }
   </style>
 </head>
 <body>
-  <!-- 加载动画：三角形内嵌 & 符号 -->
+  <!-- 加载动画 -->
   <div id="loader-wrapper">
-  <div id="loader-spinner">
-        <i class="fa-solid fa-spinner fa-spin"></i>
-        <span>少女祈祷中…</span>
-  </div>
+    <div id="loader-spinner">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      <span>少女祈祷中…</span>
+    </div>
   </div>
 
 <div id="app">
@@ -730,6 +969,10 @@
         <i class="fas fa-info-circle nav-icon"></i>
         <span class="nav-text">关于</span>
       </a>
+<a href="#changelog" class="nav-item" data-page="changelog">
+  <i class="fas fa-history nav-icon"></i>
+  <span class="nav-text">更新日志</span>
+</a>
     </nav>
     <button class="collapse-toggle" id="collapseSidebarBtn">
       <i class="fas fa-chevron-right" id="collapseIcon"></i>
@@ -746,30 +989,41 @@
         <a href="#home" class="breadcrumb-item"><i class="fas fa-home"></i><span>首页</span></a>
       </nav>
     </div>
-    <div class="logo">
-      <img src="https://s-a-oj.github.io/assets/S&A_Logo_Square.png" alt="Logo" class="logo-img">
+    <div class="topbar-right" style="display: flex; align-items: center; gap: 16px;">
+      <button class="topbar-download-btn" id="topbarDownloadBtn">
+        <i class="fas fa-download"></i> 下载
+      </button>
+      <div class="logo">
+        <img src="https://s-a-oj.github.io/assets/S&A_Logo_Square.png" alt="Logo" class="logo-img">
+      </div>
     </div>
   </header>
 
   <!-- 主容器 -->
   <div class="main-container">
-    <!-- 页面容器 (已修改为display切换) -->
+<!-- 顶部轮播公告栏 -->
+  <div id="top-announcement-carousel" style="display: none;">
+    <div class="carousel-wrapper">
+      <div class="carousel-slides" id="carouselSlides"></div>
+      <div class="carousel-counter" id="carouselCounter"></div>
+    </div>
+  </div>
     <div class="pages-container" id="pagesContainer">
 
       <!-- 首页 -->
       <main class="content active" id="home-page">
         <div class="content-inner">
-          <!-- 标题区：上为艺术字，下为渐变方框 -->
           <div class="home-header">
             <div class="art-text">
               <span class="art-s">S</span>
-              <span class="art-amp">&</span>
+              <span class="art-amp">&amp;</span>
               <span class="art-a">A</span>
               <span class="art-oj">OJ</span>
             </div>
             <div class="header-right">
               <div class="box-line">为OJ带来完美体验</div>
               <div class="box-line">S&A - OJ 样式提供全新视觉，让您的刷题之旅更加优雅高效。</div>
+              <button class="btn-download" id="scrollToDownloadBtn"><i class="fas fa-arrow-down"></i> 立即下载</button>
             </div>
           </div>
 
@@ -780,24 +1034,23 @@
               <p class="section-subtitle">为您提供更好的使用体验</p>
             </div>
             <div class="feature-grid">
-              <div class="feature-card"><div class="feature-icon"><i class="fas fa-font"></i></div><h3 class="feature-title">字体统一美化</h3><p class="feature-desc">为洛谷、AtCoder等多个OJ应用霞鹜文楷字体，卡片采用毛玻璃效果与平滑加载动画，界面更精致。</p><div class="feature-tags"><span class="tag">美化</span><span class="tag">排版</span><span class="tag">毛玻璃</span></div></div>
-              <div class="feature-card"><div class="feature-icon"><i class="fas fa-bolt"></i></div><h3 class="feature-title">题目跳转 & 保存站</h3><p class="feature-desc">支持双击跳题、快速访问保存站，刷题效率倍增。</p><div class="feature-tags"><span class="tag">效率</span><span class="tag">导航</span><span class="tag">跳转</span></div></div>
-              <div class="feature-card"><div class="feature-icon"><i class="fas fa-search"></i></div><h3 class="feature-title">高级搜索</h3><p class="feature-desc">增强的搜索功能，支持更多筛选条件与内容搜索，精准定位题目与讨论。</p><div class="feature-tags"><span class="tag">搜索</span><span class="tag">筛选</span><span class="tag">精准</span></div></div>
-              <div class="feature-card"><div class="feature-icon"><i class="fas fa-comment-dots"></i></div><h3 class="feature-title">聊天Markdown & 在线状态</h3><p class="feature-desc">犇犇和文章支持Markdown渲染，实时显示用户在线状态，互动更畅快。</p><div class="feature-tags"><span class="tag">社区</span><span class="tag">互动</span><span class="tag">Markdown</span></div></div>
-              <div class="feature-card"><div class="feature-icon"><i class="fas fa-sliders-h"></i></div><h3 class="feature-title">个性化设置</h3><p class="feature-desc">提供丰富的个性化选项，让您按照自己的喜好定制插件，随心切换主题与功能。</p><div class="feature-tags"><span class="tag">自定义</span><span class="tag">设置</span><span class="tag">主题</span></div></div>
-              <div class="feature-card"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><h3 class="feature-title">隐私保护</h3><p class="feature-desc">仅您的 UID 会被他人知道，其他个人信息严格保密。</p><div class="feature-tags"><span class="tag">安全</span><span class="tag">保护</span><span class="tag">隐私</span></div></div>
+              <div class="feature-card"><div class="feature-icon"><i class="fas fa-font"></i></div><h3 class="feature-title">优雅字体与毛玻璃</h3><p class="feature-desc">全局应用霞鹜文楷字体，卡片毛玻璃效果，圆角与平滑过渡，背景动态渐变。</p><div class="feature-tags"><span class="tag">字体</span><span class="tag">毛玻璃</span><span class="tag">视觉</span></div></div>
+              <div class="feature-card"><div class="feature-icon"><i class="fas fa-moon"></i></div><h3 class="feature-title">深色模式完美适配</h3><p class="feature-desc">跟随系统深色模式，所有自定义颜色自动优化，夜间刷题不累眼。</p><div class="feature-tags"><span class="tag">深色模式</span><span class="tag">护眼</span><span class="tag">自适应</span></div></div>
+              <div class="feature-card"><div class="feature-icon"><i class="fas fa-gem"></i></div><h3 class="feature-title">精致组件与动效</h3><p class="feature-desc">按钮、卡片、输入框全面重绘，悬停上浮与平滑动画，细节体验拉满。</p><div class="feature-tags"><span class="tag">组件</span><span class="tag">动效</span><span class="tag">交互</span></div></div>
+              <div class="feature-card"><div class="feature-icon"><i class="fas fa-globe"></i></div><h3 class="feature-title">多平台统一覆盖</h3><p class="feature-desc">完美兼容洛谷主站、训练场、保存站及 AtCoder，风格一致无割裂。</p><div class="feature-tags"><span class="tag">多平台</span><span class="tag">洛谷</span><span class="tag">AtCoder</span></div></div>
+              <div class="feature-card"><div class="feature-icon"><i class="fas fa-link"></i></div><h3 class="feature-title">链接美化与主题色</h3><p class="feature-desc">自定义主题色，链接拥有优雅渐变下划线动画，支持一键强调色切换。</p><div class="feature-tags"><span class="tag">链接</span><span class="tag">主题色</span><span class="tag">动画</span></div></div>
             </div>
           </section>
 
-          <!-- 项目卡片 -->
-          <div class="dual-section">
-          <div class="section-title-div"><h2 class="section-title">下载</h2><p class="section-subtitle">立刻享受全新视觉及增强功能体验</p></div>
-            <div class="project-card"><div class="project-title"><i class="fas fa-paint-brush"></i> S&A - OJ —— 完美的OJ - luogu，Atcoder (Stylus样式)</div><p class="project-desc">为在线评测界面注入优雅样式，沉浸式刷题体验。支持自定义主题，代码高亮重绘。</p><div class="version-info">当前版本: <span id="sa-oj-version">加载中...</span></div><div class="download-links"><a href="https://userstyles.world/style/26790/sa-oj-oj-luoguatcoder" class="btn" target="_blank"><i class="fas fa-info-circle"></i> 查看详情</a><a href="https://userstyles.world/api/style/26790.user.css" class="btn btn-outline" target="_blank"><i class="fas fa-download"></i> Stylus一键下载</a></div><div class="howto"><h4><i class="fas fa-mouse-pointer"></i> 如何下载</h4><ol><li>安装 <a href="https://cdn3.zzzmh.cn/v3/crx/c392a259f5b247308d8b980b1bdc88da/clngdbkpkpeebahjckkjfobafhncgmne.zip?auth_key=1772640000-05c88de9acf1279dea5fb5256fa1144897aac8d9-0-1c28e5de2fa02cd6cea047d88cdea492">Stylus</a> 浏览器插件</li><li>点击上方“Stylus一键下载”，在弹出的界面中点击“安装样式”</li><li>刷新 OJ 页面，即可享受全新视觉</li></ol></div></div>
+          <!-- 项目卡片 - 添加id="download" -->
+          <div class="dual-section" id="download">
+            <div class="section-title-div"><h2 class="section-title">下载</h2><p class="section-subtitle">立刻享受全新视觉及增强功能体验</p></div>
+            <div class="project-card"><div class="project-title"><i class="fas fa-paint-brush"></i> S&A - OJ —— 完美的OJ - luogu，Atcoder (Stylus样式)</div><p class="project-desc">为在线评测界面注入优雅样式，沉浸式刷题体验。支持自定义主题，代码高亮重绘。</p><div class="version-info">当前版本: <span id="sa-oj-version">加载中...</span></div><div class="download-links"><a href="https://userstyles.world/style/26790/sa-oj-oj-luoguatcoder" class="btn" target="_blank"><i class="fas fa-info-circle"></i> 查看详情</a><a href="https://userstyles.world/api/style/26790.user.css" class="btn btn-outline" target="_blank"><i class="fas fa-download"></i> Stylus一键下载</a></div><div class="howto"><h4><i class="fas fa-mouse-pointer"></i> 如何下载</h4><ol><li>安装 <a href="https://chrome.zzzmh.cn/info/clngdbkpkpeebahjckkjfobafhncgmne">Stylus</a> 浏览器插件</li><li>点击上方“Stylus一键下载”，在弹出的界面中点击“安装样式”</li><li>刷新 OJ 页面，即可享受全新视觉</li></ol></div></div>
           </div>
         </div>
       </main>
 
-      <!-- 探索页 (完整内容) -->
+      <!-- 探索页 -->
       <main class="content" id="explore-page">
         <div class="content-inner">
           <div class="explore-header">
@@ -858,7 +1111,7 @@
         </div>
       </main>
 
-      <!-- 关于页 (完整内容) -->
+      <!-- 关于页 -->
       <main class="content" id="about-page">
         <div class="content-inner">
           <div class="page-header">
@@ -895,13 +1148,103 @@
           </div>
         </div>
       </main>
+<!-- 更新日志页 -->
+<main class="content" id="changelog-page">
+  <div class="content-inner">
+    <div class="page-header">
+      <div class="section-title-div">
+        <h1 class="section-title title">📋 更新日志</h1>
+        <p class="section-subtitle">版本记录 · 功能迭代</p>
+      </div>
     </div>
+    <div id="changelog-content" class="changelog-container">
+      <div class="loading-text"><span class="loading-spinner"></span> 加载中...</div>
+    </div>
+  </div>
+</main>
+    </div>
+
+    <footer class="site-footer">
+      <p>© 2013-2026 S&amp;A. All rights reserved.</p>
+    </footer>
+
   </div>
 </div>
 
 <script>
+  // ========== 全局辅助函数（必须在最前面定义） ==========
+  let changelogLoaded = false;
+  function ensureChangelogLoaded() {
+    if (!changelogLoaded && document.getElementById('changelog-page').classList.contains('active')) {
+      loadChangelog();
+      changelogLoaded = true;
+    }
+  }
+
+  async function loadChangelog() {
+    const container = document.getElementById('changelog-content');
+    if (!container) return;
+    
+    const changelogUrl = 'https://s-a-oj.github.io/CHANGELOG.md?t=' + Date.now();
+    try {
+      const response = await fetch(changelogUrl);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const markdown = await response.text();
+      
+      if (typeof marked === 'undefined') {
+        await loadScript('https://cdn.jsdelivr.net/npm/marked/marked.min.js');
+      }
+      
+      const rawHtml = await marked.parse(markdown);
+      container.innerHTML = rawHtml;
+      
+      await loadKatexAndRender(container);
+      
+    } catch (err) {
+      console.error('更新日志加载失败:', err);
+      container.innerHTML = `<div class="loading-text">⚠️ 无法加载更新日志，请检查仓库根目录是否存在 CHANGELOG.md 文件。</div>`;
+    }
+  }
+
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+
+  async function loadKatexAndRender(container) {
+    if (typeof katex === 'undefined') {
+      const cssLink = document.createElement('link');
+      cssLink.rel = 'stylesheet';
+      cssLink.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css';
+      document.head.appendChild(cssLink);
+      
+      await loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js');
+      await loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js');
+    }
+    
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(container, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$',  right: '$',  display: false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ],
+        throwOnError: false
+      });
+    } else {
+      console.warn('KaTeX auto-render 未加载成功');
+    }
+  }
+
+  // ========== 主页面逻辑 ==========
   (function() {
-    // ---------- 加载动画：页面加载完成后淡出，并让内容淡入 ----------
+    // ---------- 加载动画 ----------
     window.addEventListener('load', function() {
       const loader = document.getElementById('loader-wrapper');
       const app = document.getElementById('app');
@@ -921,17 +1264,15 @@
         if (overlay) overlay.style.display = 'none';
         if (sidebar) sidebar.classList.remove('open');
       }
-      // -----------------------------------------
     });
 
-    // ---------- 侧边栏、页面切换逻辑 ----------
+    // ---------- 侧边栏折叠逻辑 ----------
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebarOverlay');
     const menuToggle = document.getElementById('menuToggle');
     const navItems = document.querySelectorAll('.nav-item');
     const pages = document.querySelectorAll('.content');
     const breadcrumb = document.getElementById('breadcrumb');
-    const pagesContainer = document.getElementById('pagesContainer');
     const collapseBtn = document.getElementById('collapseSidebarBtn');
     const collapseIcon = document.getElementById('collapseIcon');
 
@@ -968,38 +1309,82 @@
     overlay.addEventListener('click', closeSidebar);
     window.addEventListener('resize', () => { if (window.innerWidth > 768) closeSidebar(); });
 
+    // 页面切换函数
     function switchPage(pageId) {
       navItems.forEach(item => item.classList.toggle('active', item.dataset.page === pageId));
-      const pageNames = { home:'首页', explore:'探索', about:'关于' };
-      breadcrumb.innerHTML = `<a href="#${pageId}" class="breadcrumb-item"><i class="fas fa-${pageId === 'home' ? 'home' : (pageId==='explore'?'compass':'info-circle')}"></i><span>${pageNames[pageId]}</span></a>`;
+      const pageNames = {
+        home: '首页',
+        explore: '探索',
+        about: '关于',
+        changelog: '更新日志'
+      };
+      let icon = 'info-circle';
+      if (pageId === 'home') icon = 'home';
+      else if (pageId === 'explore') icon = 'compass';
+      else if (pageId === 'changelog') icon = 'history';
+      breadcrumb.innerHTML = `<a href="#${pageId}" class="breadcrumb-item"><i class="fas fa-${icon}"></i><span>${pageNames[pageId]}</span></a>`;
       pages.forEach(p => p.classList.remove('active'));
       document.getElementById(`${pageId}-page`).classList.add('active');
+      
+      if (pageId === 'changelog') ensureChangelogLoaded();
     }
 
     window.addEventListener('hashchange', () => {
       const hash = location.hash.slice(1) || 'home';
-      if (['home','explore','about'].includes(hash)) switchPage(hash);
+      if (['home','explore','about','changelog'].includes(hash)) switchPage(hash);
     });
     const initialHash = location.hash.slice(1) || 'home';
-    pages.forEach(p => p.classList.remove('active'));
-    document.getElementById(`${initialHash}-page`).classList.add('active');
-    navItems.forEach(item => item.classList.toggle('active', item.dataset.page === initialHash));
+    if (['home','explore','about','changelog'].includes(initialHash)) {
+      pages.forEach(p => p.classList.remove('active'));
+      document.getElementById(`${initialHash}-page`).classList.add('active');
+      navItems.forEach(item => item.classList.toggle('active', item.dataset.page === initialHash));
+      if (initialHash === 'changelog') ensureChangelogLoaded();
+    } else {
+      switchPage('home');
+    }
     navItems.forEach(item => {
       item.addEventListener('click', (e) => {
+        if (item.id === 'downloadNavBtn') {
+          e.preventDefault();
+          if (window.innerWidth <= 768) closeSidebar();
+          return;
+        }
         e.preventDefault();
         location.hash = item.dataset.page;
         if (window.innerWidth <= 768) closeSidebar();
       });
     });
 
-    // ---------- 探索页数据：从API获取 ----------
-    const AMLG_BASE = 'https://amlg.top';
-    const PROXY = 'https://api.codetabs.com/v1/proxy?quest='; // 已测试可用的代理
+    // 顶栏下载按钮滚动
+    const topbarDownloadBtn = document.getElementById('topbarDownloadBtn');
+    if (topbarDownloadBtn) {
+      topbarDownloadBtn.addEventListener('click', () => {
+        if (location.hash !== '#home') {
+          location.hash = 'home';
+          setTimeout(() => {
+            const downloadSection = document.getElementById('download');
+            if (downloadSection) downloadSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        } else {
+          const downloadSection = document.getElementById('download');
+          if (downloadSection) downloadSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
 
+    const downloadBtn = document.getElementById('scrollToDownloadBtn');
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', () => {
+        const downloadSection = document.getElementById('download');
+        if (downloadSection) downloadSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    // ---------- 探索页数据 ----------
+    const AMLG_BASE = 'https://amlg.top';
+    const PROXY = 'https://api.codetabs.com/v1/proxy?quest=';
     let websitesData = [];
     let scriptsData = [];
-
-    // 探索页筛选状态
     let exploreMainFilter = 'all';
     let websiteTagFilter = 'all';
     let scriptTagFilter = 'all';
@@ -1007,23 +1392,16 @@
 
     async function fetchExploreData() {
       try {
-        // 获取网站数据
         const websitesUrl = PROXY + encodeURIComponent(AMLG_BASE + '/data/websites.json?t=' + Date.now());
-        const websitesRes = await fetch(websitesUrl, {
-          headers: { 'User-Agent': 'Mozilla/5.0' }
-        });
+        const websitesRes = await fetch(websitesUrl, { headers: { 'User-Agent': 'Mozilla/5.0' } });
         if (websitesRes.ok) {
           const websitesJson = await websitesRes.json();
           websitesData = websitesJson.websites || [];
         } else {
           console.error('获取网站数据失败', websitesRes.status);
         }
-
-        // 获取脚本数据
         const scriptsUrl = PROXY + encodeURIComponent(AMLG_BASE + '/data/scripts.json?t=' + Date.now());
-        const scriptsRes = await fetch(scriptsUrl, {
-          headers: { 'User-Agent': 'Mozilla/5.0' }
-        });
+        const scriptsRes = await fetch(scriptsUrl, { headers: { 'User-Agent': 'Mozilla/5.0' } });
         if (scriptsRes.ok) {
           const scriptsJson = await scriptsRes.json();
           scriptsData = scriptsJson.scripts || [];
@@ -1043,7 +1421,6 @@
       const websiteCount = document.getElementById('website-count');
       const scriptCount = document.getElementById('script-count');
 
-      // 过滤网站
       let filteredWebsites = websitesData.filter(item => 
         (websiteTagFilter === 'all' || (item.tags && item.tags.includes(websiteTagFilter))) &&
         (searchTermExplore === '' || 
@@ -1052,8 +1429,6 @@
           (item.tags && item.tags.some(t => t.toLowerCase().includes(searchTermExplore)))
         )
       );
-
-      // 过滤脚本
       let filteredScripts = scriptsData.filter(item =>
         (scriptTagFilter === 'all' || (item.tags && item.tags.includes(scriptTagFilter))) &&
         (searchTermExplore === '' ||
@@ -1066,7 +1441,6 @@
       websiteCount.textContent = filteredWebsites.length;
       scriptCount.textContent = filteredScripts.length;
 
-      // 渲染网站卡片
       if (filteredWebsites.length === 0) {
         websiteGrid.innerHTML = '<div class="loading-text">暂无匹配的网站</div>';
       } else {
@@ -1097,7 +1471,6 @@
         }).join('');
       }
 
-      // 渲染脚本卡片
       if (filteredScripts.length === 0) {
         scriptGrid.innerHTML = '<div class="loading-text">暂无匹配的脚本</div>';
       } else {
@@ -1129,17 +1502,14 @@
         }).join('');
       }
 
-      // 控制模块显示隐藏（根据顶部全部/网站/脚本筛选）
       document.getElementById('website-section').style.display = (exploreMainFilter === 'script') ? 'none' : 'block';
       document.getElementById('script-section').style.display = (exploreMainFilter === 'website') ? 'none' : 'block';
     }
 
-    // 绑定探索页事件
     document.getElementById('exploreSearch').addEventListener('input', (e) => {
       searchTermExplore = e.target.value.toLowerCase().trim();
       renderExplore();
     });
-
     document.querySelectorAll('.filter-tab').forEach(tab => {
       tab.addEventListener('click', function() {
         document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
@@ -1148,7 +1518,6 @@
         renderExplore();
       });
     });
-
     document.querySelectorAll('#website-tags .tag-filter-item').forEach(btn => {
       btn.addEventListener('click', function() {
         document.querySelectorAll('#website-tags .tag-filter-item').forEach(b => b.classList.remove('active'));
@@ -1157,7 +1526,6 @@
         renderExplore();
       });
     });
-
     document.querySelectorAll('#script-tags .tag-filter-item').forEach(btn => {
       btn.addEventListener('click', function() {
         document.querySelectorAll('#script-tags .tag-filter-item').forEach(b => b.classList.remove('active'));
@@ -1167,22 +1535,17 @@
       });
     });
 
-    // 开始获取数据
     fetchExploreData();
 
     // ---------- 版本号获取 ----------
     async function fetchSAVersion() {
       const versionSpan = document.getElementById('sa-oj-version');
       const targetUrl = 'https://userstyles.world/api/style/26790.user.css';
-      const proxies = ['https://api.codetabs.com/v1/proxy?quest=','https://cors-anywhere.herokuapp.com/','https://proxy.cors.sh/','https://cors.zimjs.com/',];
+      const proxies = ['https://api.codetabs.com/v1/proxy?quest=','https://cors-anywhere.herokuapp.com/','https://proxy.cors.sh/','https://cors.zimjs.com/'];
       for (const proxy of proxies) {
         try {
           const url = proxy + encodeURIComponent(targetUrl);
-          const response = await fetch(url, {
-            headers: {
-              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-            }
-          });
+          const response = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
           if (response.ok) {
             const cssText = await response.text();
             const match = cssText.match(/@version\s*[:\s]*([vV]?[\d.\-]+)/);
@@ -1196,6 +1559,147 @@
 
     fetchSAVersion();
   })();
+
+// ==================== 顶部轮播公告栏（块状卡片 + 自定义背景 + 平滑淡入淡出） ====================
+(function() {
+  const CAROUSEL_CONFIG = {
+    dataUrl: 'https://s-a-oj.github.io/data/announcements.json',
+    rotateInterval: 5000,
+  };
+
+  let announcementList = [];
+  let currentIndex = 0;
+  let rotateTimer = null;
+  let carouselContainer = document.getElementById('top-announcement-carousel');
+  let slidesContainer = document.getElementById('carouselSlides');
+  let counterSpan = document.getElementById('carouselCounter');
+
+  // 筛选有效公告（active === true）
+  function getValidAnnouncements(rawList) {
+    return rawList.filter(item => item.active === true);
+  }
+
+  // 生成内联背景样式（根据 bg 字段）
+  function getBackgroundStyle(ann) {
+    if (ann.bg) {
+      if (ann.bg.type === 'color') return `background: ${ann.bg.value};`;
+      if (ann.bg.type === 'gradient') return `background: ${ann.bg.value};`;
+      if (ann.bg.type === 'image') return `background: url(${ann.bg.value}) center/cover no-repeat;`;
+    }
+    return ''; // 使用 CSS 默认渐变
+  }
+
+  // 渲染轮播（构建所有 item，只显示 active 的）
+  function renderCarousel() {
+    if (!slidesContainer) return;
+    if (!announcementList.length) {
+      if (carouselContainer) carouselContainer.style.display = 'none';
+      return;
+    }
+    if (carouselContainer) carouselContainer.style.display = 'block';
+
+    slidesContainer.innerHTML = '';
+    announcementList.forEach((ann, idx) => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'carousel-item';
+      if (idx === currentIndex) itemDiv.classList.add('active');
+      
+      // 应用自定义背景
+      const bgStyle = getBackgroundStyle(ann);
+      if (bgStyle) itemDiv.style.cssText = bgStyle;
+      
+      // 内部结构：文本容器 + 链接（如果有）
+      const textSpan = document.createElement('div');
+      textSpan.className = 'announcement-text';
+      textSpan.innerHTML = `<strong>${escapeHtml(ann.title)}</strong> ${escapeHtml(ann.content)}`;
+      itemDiv.appendChild(textSpan);
+      
+      if (ann.link) {
+        const link = document.createElement('a');
+        link.href = ann.link;
+        link.textContent = ann.linkText || '查看详情';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        itemDiv.appendChild(link);
+      }
+      
+      slidesContainer.appendChild(itemDiv);
+    });
+    updateCounter();
+  }
+
+  function updateCounter() {
+    if (counterSpan && announcementList.length) {
+      counterSpan.textContent = `(${currentIndex + 1}/${announcementList.length})`;
+    }
+  }
+
+  // 切换到下一条（平滑淡入淡出）
+  function nextSlide() {
+    if (announcementList.length <= 1) return;
+    const items = document.querySelectorAll('#carouselSlides .carousel-item');
+    if (items.length === 0) return;
+    items[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % items.length;
+    items[currentIndex].classList.add('active');
+    updateCounter();
+  }
+
+  function startRotateTimer() {
+    if (rotateTimer) clearInterval(rotateTimer);
+    if (announcementList.length > 1) {
+      rotateTimer = setInterval(nextSlide, CAROUSEL_CONFIG.rotateInterval);
+    }
+  }
+
+  // 鼠标悬浮暂停
+  function bindHoverPause() {
+    if (!carouselContainer) return;
+    carouselContainer.addEventListener('mouseenter', () => {
+      if (rotateTimer) clearInterval(rotateTimer);
+    });
+    carouselContainer.addEventListener('mouseleave', () => {
+      if (announcementList.length > 1) startRotateTimer();
+    });
+  }
+
+  async function fetchAnnouncements() {
+    try {
+      const response = await fetch(CAROUSEL_CONFIG.dataUrl + '?t=' + Date.now());
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      const rawList = data.announcements || [];
+      const newList = getValidAnnouncements(rawList);
+      // 如果公告列表发生变化（id 不同），重新渲染
+      if (JSON.stringify(announcementList.map(a => a.id)) !== JSON.stringify(newList.map(a => a.id))) {
+        announcementList = newList;
+        currentIndex = 0;
+        renderCarousel();
+        startRotateTimer();
+      }
+    } catch (err) {
+      console.warn('公告轮播拉取失败:', err);
+      if (carouselContainer) carouselContainer.style.display = 'none';
+    }
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  async function init() {
+    await fetchAnnouncements();
+    bindHoverPause();
+    setInterval(fetchAnnouncements, 3600000);
+  }
+  init();
+})();
 </script>
 </body>
 </html>
