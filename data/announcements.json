@@ -2,6 +2,18 @@
   "announcements": [
     {
       "id": 1,
+      "title": "Amazing Luogu",
+      "content": "Amazing Luogu 全新整改，安全实用，快去看看吧！",
+      "link": "https://amlg.top/",
+      "linkText": "Link！",
+      "active": true,
+      "bg": {
+        "type": "gradient",
+        "value": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+      }
+    },
+    {
+      "id": 2,
       "title": "网页公告",
       "content": "现在可以使用网页公告啦！",
       "active": true,
@@ -11,25 +23,25 @@
       }
     },
     {
-      "id": 2,
+      "id": 3,
       "title": "更新日志",
       "content": "我们新整了一个更新日志界面！",
       "link": "#changelog",
       "linkText": "查看",
       "active": true,
       "bg": {
-        "type": "color",
+        "type": "gradient",
         "value": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
       }
     },
     {
-      "id": 3,
+      "id": 4,
       "title": "S&A重构说明",
       "content": "我们将仿照氧洛谷来重构样式，将对用户进行更好的个性化体验。",
       "active": true,
       "bg": {
-        "type": "color",
-        "value": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+        "type": "gradient",
+        "value": "linear-gradient(135deg, rgb(234 102 102) 0%, rgb(162 75 75) 100%)"
       }
     }
   ]
