@@ -2,8 +2,8 @@
   "announcements": [
     {
       "id": 1,
-      "title": "Amazing Luogu",
-      "content": "Amazing Luogu 全新整改，安全实用，快去看看吧！",
+      "title": "关于Amazing Luogu",
+      "content": "Amazing Luogu正在让洛谷的功能变强，增强体验，目前还在研发中，让我们期待Amazing Luogu变成一个安全实用的插件吧！",
       "link": "https://amlg.top/",
       "linkText": "Link！",
       "active": true,
