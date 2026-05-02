@@ -2,8 +2,18 @@
   "announcements": [
     {
       "id": 1,
-      "title": "关于Amazing Luogu",
-      "content": "Amazing Luogu正在让洛谷的功能变强，目前还在研发中，让我们期待Amazing Luogu变成一个安全实用的插件吧！",
+      "title": "S&A Dev 即将上线",
+      "content": "Smart and Amazing OJ Dev 即将上线，驱使用户可以自定义样式背景、手动深色等。",
+      "active": true,
+      "bg": {
+        "type": "gradient",
+        "value": "linear-gradient(135deg, rgb(102 194 234) 0%, rgb(218 54 54) 100%)"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Amazing Luogu",
+      "content": "Amazing Luogu 是一款让洛谷变得更好的篡改猴插件。",
       "link": "https://amlg.top/",
       "linkText": "Link！",
       "active": true,
@@ -13,7 +23,7 @@
       }
     },
     {
-      "id": 2,
+      "id": 3,
       "title": "网页公告",
       "content": "现在可以使用网页公告啦！",
       "active": true,
@@ -23,7 +33,7 @@
       }
     },
     {
-      "id": 3,
+      "id": 4,
       "title": "更新日志",
       "content": "我们新整了一个更新日志界面！",
       "link": "#changelog",
@@ -32,16 +42,6 @@
       "bg": {
         "type": "gradient",
         "value": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-      }
-    },
-    {
-      "id": 4,
-      "title": "S&A重构说明",
-      "content": "我们将仿照氧洛谷来重构样式，将对用户进行更好的个性化体验。",
-      "active": true,
-      "bg": {
-        "type": "gradient",
-        "value": "linear-gradient(135deg, rgb(234 102 102) 0%, rgb(162 75 75) 100%)"
       }
     }
   ]
