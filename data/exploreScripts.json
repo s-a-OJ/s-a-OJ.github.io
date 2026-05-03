@@ -1,19 +1,39 @@
 {
-  "scripts": [
+  "announcements": [
     {
-      "name": "GenGen RMJ",
-      "icon": "fas fa-rocket",
-      "type": "scriptcat",
-      "desc": "新的 RMJ",
-      "link": "https://gengen.qzz.io/projects/rmj/"
+      name: 'GenGen RMJ',
+      icon: 'fas fa-rocket',
+      type: 'scriptcat',
+      desc: '新的 RMJ',
+      link: 'https://gengen.qzz.io/projects/rmj/'
     },
     {
-      "name": "Better Luogu",
-      "icon": "fas fa-puzzle-piece",
-      "type": "tampermonkey",
-      "desc": "强大的洛谷插件",
-      "link": "https://blg.volatiles.dpdns.org/"
+      name: 'Better Luogu',
+      icon: 'fas fa-puzzle-piece',
+      type: 'tampermonkey',
+      desc: '强大的洛谷插件',
+      link: 'https://blg.volatiles.dpdns.org/'
+    },
+    {
+      name: 'Argon Luogu',
+      icon: 'fa-brands fa-css',
+      type: 'software',
+      desc: '漂亮的洛谷样式',
+      link: 'https://userstyles.world/style/24127/default-slug'
+    },
+    {
+      name: 'OI CPP',
+      icon: 'fa-solid fa-code',
+      type: 'software',
+      desc: '强大的 IDE',
+      link: 'https://oicpp.mywwzh.top/'
+    },
+    {
+      name: '洛谷仓库',
+      icon: 'fa-regular fa-floppy-disk',
+      type: 'website',
+      desc: '强大的洛谷保存站。',
+      link: 'https://luogu.store/' 
     }
-    // ... 其他项目
   ]
 }
