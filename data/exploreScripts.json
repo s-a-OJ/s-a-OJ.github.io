@@ -1,0 +1,19 @@
+{
+  "scripts": [
+    {
+      "name": "GenGen RMJ",
+      "icon": "fas fa-rocket",
+      "type": "scriptcat",
+      "desc": "新的 RMJ",
+      "link": "https://gengen.qzz.io/projects/rmj/"
+    },
+    {
+      "name": "Better Luogu",
+      "icon": "fas fa-puzzle-piece",
+      "type": "tampermonkey",
+      "desc": "强大的洛谷插件",
+      "link": "https://blg.volatiles.dpdns.org/"
+    }
+    // ... 其他项目
+  ]
+}
