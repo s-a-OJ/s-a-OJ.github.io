@@ -4,7 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
   <meta charset="UTF-8">
-  <link rel="icon" type="image/png" href="https://s-a-oj.github.io/assets/S&A_Logo_Horizontal.png">
+  <link rel="icon" type="image/png" href="https://meiluo-luogu.github.io/assets/S&A_Logo_Horizontal.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Hel-Y">
   <title>S&A · OJ | 强大的样式</title>
@@ -994,7 +994,7 @@
         <i class="fas fa-download"></i> 下载
       </button>
       <div class="logo">
-        <img src="https://s-a-oj.github.io/assets/S&A_Logo_Square.png" alt="Logo" class="logo-img">
+        <img src="https://meiluo-luogu.github.io/assets/S&A_Logo_Square.png" alt="Logo" class="logo-img">
       </div>
     </div>
   </header>
@@ -1185,7 +1185,7 @@
     const container = document.getElementById('changelog-content');
     if (!container) return;
     
-    const changelogUrl = 'https://s-a-oj.github.io/CHANGELOG.md?t=' + Date.now();
+    const changelogUrl = 'https://meiluo-luogu.github.io/CHANGELOG.md?t=' + Date.now();
     try {
       const response = await fetch(changelogUrl);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -1561,7 +1561,7 @@ if (['home', 'explore', 'about', 'changelog'].includes(initialHash)) {
 // ==================== 顶部轮播公告栏（块状卡片 + 自定义背景 + 平滑淡入淡出） ====================
 (function() {
   const CAROUSEL_CONFIG = {
-    dataUrl: 'https://s-a-oj.github.io/data/announcements.json',
+    dataUrl: 'https://meiluo-luogu.github.io/data/announcements.json',
     rotateInterval: 5000,
   };
 
