@@ -1,5 +1,11 @@
 # S&A - OJ 更新日志
 
+2026/5/16  
+${\color{green} ADDED}$ ：新增等宽字体，适用于代码块等。  
+${\color{green} ADDED}$ ：题单更新。  
+${\color{green} ADDED}$ ：新增淡入动画、列表项悬停、关键帧动画等。 
+${\color{green} ADDED}$ ：新增阅读进度条。 
+${\color{yellow} FIXED}$ ：优化动画。  
 2026/4/11  
 ${\color{yellow} FIXED}$ ：仿照氧洛谷重构顶栏侧栏。  
 2026/4/9  
