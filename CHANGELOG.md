@@ -1,4 +1,4 @@
-# S&A - OJ 更新日志
+# 镁洛谷 - Meiluo Luogu 更新日志
 
 2026/5/16  
 ${\color{green} ADDED}$ ：新增等宽字体，适用于代码块等。  
@@ -6,6 +6,7 @@ ${\color{green} ADDED}$ ：题单更新。
 ${\color{green} ADDED}$ ：新增淡入动画、列表项悬停、关键帧动画等。 
 ${\color{green} ADDED}$ ：新增阅读进度条。 
 ${\color{yellow} FIXED}$ ：优化动画。  
+${\color{yellow} FIXED}$ ：名字大变，变为镁洛谷 - Meiluo Luogu。  
 2026/4/11  
 ${\color{yellow} FIXED}$ ：仿照氧洛谷重构顶栏侧栏。  
 2026/4/9  
@@ -30,4 +31,4 @@ ${\color{yellow} FIXED}$ ：更改卡片等样式、背景。
 ${\color{green} ADDED}$ ：上线暗色模式beta、动态渐变层（粉蓝）等多元化元素。  
 ${\color{yellow} FIXED}$ ：更新主题色、链接样式等元素。  
 2026/2/25  
-${\color{green} ADDED}$ ：样式上市，基于 Smart-oj ，添加霞鹜文楷Screen字体，更美观。
+${\color{green} ADDED}$ ：样式上市，基于 Smart-oj ，添加霞鹜文楷Screen字体，更美观。  
