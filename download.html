@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="UserStyle 下载加速服务 - 快速、安全、稳定">
+    <title>下载 - 镁洛谷 - Meiluo Luogu</title>
+    <link rel="icon" type="image/png" href="https://meiluo-luogu.github.io/assets/S&amp;A_Logo_Horizontal.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #fa4b4b;
+            --primary-hover: #e03a3a;
+            --primary-light: #ff6b6b;
+            --primary-lighter: #ffa5a5;
+            --bg-primary: #ffe8e8;
+            --bg-secondary: #ffd4d4;
+            --text-primary: #5a3a3a;
+            --text-secondary: #6e4e4e;
+            --text-tertiary: #9b7a7a;
+            --border-color: #f0c0c0;
+            --border-light: #ffe0e0;
+            --bg-page: #fff7f7;
+            --white: #fff;
+            --skeleton: #f0b3b3;
+            --success: #4caf50;
+            --error: #f44336;
+            --transition: all 0.3s ease;
+        }
+        
+        @import url('https://cdn.jsdmirror.com/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css');
+        
+
+        @keyframes slowshow {
+		0% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+
+        body {
+            animation: slowshow .5s 1;
+            font-family: "LXGW Wenkai Screen",-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, 'Noto Sans SC', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-secondary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 640px;
+            width: 100%;
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 20px;
+            min-height: 400px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--primary-color);
+            color: var(--primary-color);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        .icon.success {
+            border-color: var(--success);
+            color: var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        .icon.error {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .material-icons {
+            font-size: 32px;
+            font-weight: normal;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .desc {
+            color: var(--text-tertiary);
+            text-align: center;
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+
+        .progress-container {
+            width: 100%;
+            margin: 24px auto;
+        }
+
+        .progress-wrapper {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 32px;
+            position: relative;
+            border: 1px solid var(--bg-secondary);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        #progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 14px;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+            white-space: nowrap;
+        }
+
+        .status-section {
+            margin: 24px 0;
+            padding: 18px;
+            background: var(--bg-page);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            min-height: 100px;
+        }
+
+        .status-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-list {
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-light);
+            font-family: monospace;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-item .latency {
+            margin-left: auto;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 12px;
+        }
+
+        .status-item.success {
+            color: var(--success);
+        }
+
+        .status-item.failed {
+            color: #999;
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .status-item .badge-icon {
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(96,125,139,0.2);
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .tip {
+            margin-top: 20px;
+            padding: 12px;
+            background: var(--bg-page);
+            border-left: 3px solid var(--primary-color);
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-align: center;
+        }
+
+        #debug-btn {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(96,125,139,0.3);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        #debug-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .url-input-area {
+            margin-bottom: 20px;
+        }
+
+        .style-id-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: monospace;
+            background: var(--white);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 16px; }
+            .container { padding: 28px 20px; }
+            h1 { font-size: 22px; }
+            #debug-btn { top: 16px; right: 16px; width: 48px; height: 48px; }
+            #progress-text { white-space: normal; font-size: 11px; }
+        }
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/materialicons/v145/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2')
+}
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <div id="main-view">
+        <div class="icon" id="status-icon">
+            <span class="material-icons">rocket_launch</span>
+        </div>
+        <h1 id="status-title">正在加速</h1>
+        <p class="desc" id="status-desc">请稍候，正在为您优化连接...</p>
+        
+        <div class="progress-container">
+            <div class="progress-wrapper">
+                <div id="progress-bar" style="width: 0%;"></div>
+                <div id="progress-text">初始化</div>
+            </div>
+        </div>
+
+        <!-- 调试面板 (默认隐藏) -->
+        <div id="debug-content" style="display: none;">
+            <div class="status-section">
+                <div class="status-title">
+                    <span>📡 节点测速详情</span>
+                    <span id="node-count"></span>
+                </div>
+                <div class="status-list" id="status-list">
+                    <div style="text-align:center; padding:12px;">点击🐛按钮展开测速过程</div>
+                </div>
+            </div>
+            <div class="tip" id="debug-tip">
+                💡 正在测速，请稍后...
+            </div>
+        </div>
+
+        <div id="action-buttons" class="button-group hidden">
+            <button id="retry-btn" class="btn btn-secondary">重新测速</button>
+            <button id="manual-btn" class="btn">直接下载</button>
+        </div>
+    </div>
+</div>
+
+<button id="debug-btn">
+    <span class="material-icons">bug_report</span>
+</button>
+
+<script>
+    (function() {
+        // ---------- 配置 ----------
+        // 目标样式ID (可从URL hash或query获取，默认26790)
+        let styleId = null;
+        let targetBaseUrl = '';     // 原始userstyles.world地址
+        let finalDownloadUrl = null;
+
+        // 代理列表 (前缀)
+        const PROXY_LIST = [
+            { name: "主域直连 (userstyles.world)", urlPrefix: "", isDirect: true },
+            { name: "CodeTabs", urlPrefix: "https://api.codetabs.com/v1/proxy?quest=", isDirect: false },
+            { name: "cors-anywhere", urlPrefix: "https://cors-anywhere.herokuapp.com/", isDirect: false },
+            { name: "Cors.zimjs", urlPrefix: "https://cors.zimjs.com/", isDirect: false },
+            { name: "allorigins.win", urlPrefix: "https://api.allorigins.win/raw?url=", isDirect: false },
+            { name: "thingproxy", urlPrefix: "https://thingproxy.freeboard.io/fetch/", isDirect: false },
+            { name: "corsproxy.io", urlPrefix: "https://corsproxy.io/?", isDirect: false }
+        ];
+
+        let results = [];          // { name, urlPrefix, success, timeMs, fullUrl, error }
+        let fastestResult = null;
+        let testingActive = false;
+        let debugVisible = false;
+
+        // DOM 元素
+        const statusIcon = document.getElementById('status-icon');
+        const statusTitle = document.getElementById('status-title');
+        const statusDesc = document.getElementById('status-desc');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const debugContent = document.getElementById('debug-content');
+        const statusListDiv = document.getElementById('status-list');
+        const debugTip = document.getElementById('debug-tip');
+        const actionButtons = document.getElementById('action-buttons');
+        const retryBtn = document.getElementById('retry-btn');
+        const manualBtn = document.getElementById('manual-btn');
+        const debugBtn = document.getElementById('debug-btn');
+
+        // 辅助: 从URL获取样式ID
+        function getStyleIdFromUrl() {
+            // 支持多种格式:
+            // 1. hash: #/26790/xxx.user.css 或 #/26790
+            // 2. query: ?id=26790
+            // 3. path: /download/26790/xxx.user.css (但这里是独立页面，只需解析)
+            const hash = window.location.hash;
+            const search = window.location.search;
+            let id = null;
+            if (search) {
+                const params = new URLSearchParams(search);
+                if (params.has('id')) id = params.get('id');
+                else if (params.has('style')) id = params.get('style');
+            }
+            if (!id && hash) {
+                // 匹配 #/数字 或 #/数字/任意内容
+                const match = hash.match(/#\/(\d+)/);
+                if (match) id = match[1];
+                else {
+                    const match2 = hash.match(/\/style\/(\d+)/);
+                    if (match2) id = match2[1];
+                }
+            }
+            if (!id) {
+                // 默认演示样式 ID 26790
+                id = '26790';
+            }
+            return id;
+        }
+
+        // 构建原始目标URL
+        function buildTargetUrl(id) {
+            return `https://userstyles.world/api/style/${id}.user.css`;
+        }
+
+        // 构建带代理的完整URL
+        function buildProxyUrl(proxy, target) {
+            if (proxy.isDirect) return target;  // 直连
+            if (proxy.urlPrefix.includes('quest=') || proxy.urlPrefix.includes('?url=') || proxy.urlPrefix.includes('?q=')) {
+                return proxy.urlPrefix + encodeURIComponent(target);
+            }
+            if (proxy.urlPrefix.endsWith('/')) {
+                return proxy.urlPrefix + encodeURIComponent(target);
+            }
+            return proxy.urlPrefix + encodeURIComponent(target);
+        }
+
+        // 测速单个节点 (使用fetch, 测量响应时间，HEAD优先但部分代理不支持，改用GET并只读取第一个字节)
+        async function testSingleNode(proxy, targetUrl, timeoutMs = 8000) {
+            const fullUrl = buildProxyUrl(proxy, targetUrl);
+            const startTime = performance.now();
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                // 使用 GET 请求，接收第一个 chunk 即断开 (为了准确测量延迟)
+                const response = await fetch(fullUrl, {
+                    method: 'GET',
+                    signal: controller.signal,
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (SpeedTestBot)',
+                        'Accept': 'text/css,*/*'
+                    }
+                });
+                clearTimeout(timeoutId);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                // 读取第一个字节块（确保连接真正建立）
+                const reader = response.body.getReader();
+                await reader.read();
+                reader.releaseLock();
+                const endTime = performance.now();
+                const elapsed = endTime - startTime;
+                return { success: true, timeMs: parseFloat(elapsed.toFixed(1)), fullUrl };
+            } catch (err) {
+                clearTimeout(timeoutId);
+                if (err.name === 'AbortError') {
+                    return { success: false, timeMs: null, fullUrl, error: '超时' };
+                }
+                return { success: false, timeMs: null, fullUrl, error: err.message || '失败' };
+            }
+        }
+
+        // 更新UI进度和列表
+        function updateProgress(current, total, message) {
+            const percent = (current / total) * 100;
+            progressBar.style.width = `${percent}%`;
+            progressText.innerText = message;
+        }
+
+        function renderStatusList() {
+            if (!statusListDiv) return;
+            if (!results.length) {
+                statusListDiv.innerHTML = '<div style="text-align:center; padding:12px;">暂无测速数据</div>';
+                return;
+            }
+            let html = '';
+            for (let r of results) {
+                let statusClass = '';
+                let statusIconHtml = '';
+                let latencyHtml = '';
+                if (r.success === true) {
+                    statusClass = 'success';
+                    statusIconHtml = '<span class="badge-icon">✅</span>';
+                    latencyHtml = `<span class="latency">${r.timeMs} ms</span>`;
+                } else if (r.success === false) {
+                    statusClass = 'failed';
+                    statusIconHtml = '<span class="badge-icon">❌</span>';
+                    latencyHtml = `<span class="latency">${r.error || '失败'}</span>`;
+                } else {
+                    statusIconHtml = '<span class="badge-icon">⏳</span>';
+                    latencyHtml = '<span class="latency">等待中</span>';
+                }
+                html += `
+                    <div class="status-item ${statusClass}">
+                        ${statusIconHtml}
+                        <span style="flex:1; overflow:hidden; text-overflow:ellipsis;" title="${r.name}">${r.name}</span>
+                        ${latencyHtml}
+                    </div>
+                `;
+            }
+            statusListDiv.innerHTML = html;
+            const successCount = results.filter(r => r.success === true).length;
+            document.getElementById('node-count') && (document.getElementById('node-count').innerText = `成功 ${successCount}/${results.length}`);
+        }
+
+        // 执行完整测速流程
+        async function runSpeedTest() {
+            if (testingActive) return;
+            testingActive = true;
+            
+            // 重置状态
+            results = [];
+            fastestResult = null;
+            finalDownloadUrl = null;
+            actionButtons.classList.add('hidden');
+            statusIcon.className = 'icon';
+            statusIcon.innerHTML = '<span class="material-icons">rocket_launch</span>';
+            statusTitle.innerText = '正在加速';
+            statusDesc.innerText = '请稍候，正在为您优化连接...';
+            debugTip.innerText = '正在测速，请稍后...';
+            
+            // 获取样式ID并构建目标
+            styleId = getStyleIdFromUrl();
+            targetBaseUrl = buildTargetUrl(styleId);
+            
+            // 初始化结果数组
+            for (let proxy of PROXY_LIST) {
+                results.push({
+                    name: proxy.name,
+                    urlPrefix: proxy.urlPrefix,
+                    success: null,
+                    timeMs: null,
+                    fullUrl: null,
+                    error: null,
+                    isDirect: proxy.isDirect
+                });
+            }
+            renderStatusList();
+            
+            // 开始测速 (并发限制，避免同时过多请求)
+            const concurrency = 4;
+            let completed = 0;
+            const total = results.length;
+            
+            // 将测速任务分组并发
+            const tasks = results.map((item, idx) => ({ proxy: PROXY_LIST[idx], idx }));
+            for (let i = 0; i < tasks.length; i += concurrency) {
+                const chunk = tasks.slice(i, i + concurrency);
+                const chunkPromises = chunk.map(async ({ proxy, idx }) => {
+                    updateProgress(completed, total, `测试节点 ${completed+1}/${total}`);
+                    const res = await testSingleNode(proxy, targetBaseUrl);
+                    results[idx].success = res.success;
+                    results[idx].timeMs = res.timeMs;
+                    results[idx].fullUrl = res.fullUrl;
+                    results[idx].error = res.error;
+                    if (res.success) {
+                        if (!fastestResult || res.timeMs < fastestResult.timeMs) {
+                            fastestResult = {
+                                name: proxy.name,
+                                urlPrefix: proxy.urlPrefix,
+                                timeMs: res.timeMs,
+                                fullUrl: res.fullUrl,
+                                isDirect: proxy.isDirect
+                            };
+                        }
+                    }
+                    completed++;
+                    updateProgress(completed, total, `测试节点 ${completed}/${total}`);
+                    renderStatusList();
+                });
+                await Promise.allSettled(chunkPromises);
+            }
+            
+            // 测速完成，分析结果
+            updateProgress(total, total, '分析结果中');
+            statusTitle.innerText = '分析结果';
+            statusDesc.innerText = '正在选择最优节点...';
+            
+            // 等待一小会儿让用户看到完成状态
+            await new Promise(r => setTimeout(r, 500));
+            
+            if (fastestResult) {
+                // 成功找到最快节点
+                finalDownloadUrl = fastestResult.fullUrl;
+                statusIcon.className = 'icon success';
+                statusIcon.innerHTML = '<span class="material-icons">check_circle</span>';
+                statusTitle.innerText = '完成';
+                statusDesc.innerText = `已选择最快节点: ${fastestResult.name} (${fastestResult.timeMs} ms)`;
+                progressBar.style.width = '100%';
+                progressText.innerText = '即将跳转下载';
+                debugTip.innerText = `✅ 最快节点: ${fastestResult.name}，延迟 ${fastestResult.timeMs} ms，即将自动跳转。`;
+                renderStatusList();
+                
+                // 自动跳转下载 (延迟1秒)
+                setTimeout(() => {
+                    window.location.href = finalDownloadUrl;
+                }, 1000);
+            } else {
+                // 全部失败
+                statusIcon.className = 'icon error';
+                statusIcon.innerHTML = '<span class="material-icons">error</span>';
+                statusTitle.innerText = '加速失败';
+                statusDesc.innerText = '所有节点均不可用，请检查网络或稍后重试';
+                progressBar.style.width = '100%';
+                progressText.innerText = '失败';
+                debugTip.innerHTML = '❌ 所有代理及主域均无法访问。您可点击下方按钮直接尝试原始链接。';
+                renderStatusList();
+                // 显示手动操作按钮
+                actionButtons.classList.remove('hidden');
+                // 提供原始链接
+                if (targetBaseUrl) {
+                    manualBtn.onclick = () => { window.location.href = targetBaseUrl; };
+                }
+                retryBtn.onclick = () => { window.location.reload(); };
+            }
+            testingActive = false;
+        }
+
+        // 模拟缓存命中快速模式 (如果URL参数有 ?cache=fast 可演示第二种流程)
+        // 但本页面默认完整测速，也可以增加快速缓存逻辑: 如果URL中有 hit=1 则模拟缓存直接跳转
+        function checkCacheMode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('cache_hit') && urlParams.get('cache_hit') === '1') {
+                // 模拟缓存命中直接跳转 (第二种模式)
+                const cachedUrl = urlParams.get('cached_url') || (targetBaseUrl ? targetBaseUrl : buildTargetUrl(getStyleIdFromUrl()));
+                statusIcon.innerHTML = '<span class="material-icons">verified</span>';
+                statusTitle.innerText = '校验缓存';
+                statusDesc.innerText = '正在校验缓存节点...';
+                progressBar.style.width = '30%';
+                progressText.innerText = '校验缓存';
+                setTimeout(() => {
+                    statusIcon.className = 'icon success';
+                    statusIcon.innerHTML = '<span class="material-icons">check_circle</span>';
+                    statusTitle.innerText = '验证成功';
+                    statusDesc.innerText = '缓存校验通过，即将自动跳转';
+                    progressBar.style.width = '100%';
+                    progressText.innerText = '完成';
+                    debugTip.innerText = `⚡ 缓存加速: ${cachedUrl}`;
+                    renderStatusList(); // 空列表或无妨
+                    setTimeout(() => {
+                        window.location.href = cachedUrl;
+                    }, 800);
+                }, 800);
+                return true;
+            }
+            return false;
+        }
+
+        // 初始化页面: 如果缓存模式未触发则执行完整测速
+        function init() {
+            styleId = getStyleIdFromUrl();
+            targetBaseUrl = buildTargetUrl(styleId);
+            // 如果 debug 内容默认隐藏，由按钮控制
+            debugContent.style.display = 'none';
+            debugVisible = false;
+            
+            // 检查快速缓存模式
+            if (checkCacheMode()) return;
+            
+            // 否则正常测速
+            runSpeedTest();
+        }
+
+        // 调试按钮: 展开/收起详情面板
+        debugBtn.addEventListener('click', () => {
+            if (debugVisible) {
+                debugContent.style.display = 'none';
+                debugVisible = false;
+                debugBtn.style.background = 'var(--primary-color)';
+            } else {
+                debugContent.style.display = 'block';
+                debugVisible = true;
+                debugBtn.style.background = 'var(--primary-light)';
+                // 如果测速还没开始或者已经在测速中，确保渲染列表
+                renderStatusList();
+            }
+        });
+        
+        // 暴露重试机制: 如果失败时手动重试
+        // 页面加载启动
+        init();
+    })();
+</script>
+</body>
+</html>
