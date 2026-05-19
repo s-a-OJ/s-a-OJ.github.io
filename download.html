@@ -388,8 +388,6 @@ const PROXY_LIST = [
     { name: "主域直连 (userstyles.world)", urlPrefix: "", type: "direct" },
     { name: "CodeTabs", urlPrefix: "https://api.codetabs.com/v1/proxy?quest=", type: "proxy" },
     { name: "allorigins.win", urlPrefix: "https://api.allorigins.win/raw?url=", type: "proxy" },
-    { name: "corsproxy.io", urlPrefix: "https://corsproxy.io/?", type: "proxy" },
-    // 新增 GitHub CDN 节点
     { name: "jsDelivr (主)", repoBase: "https://cdn.jsdelivr.net/gh/Meiluo-Luogu/Meiluo-Luogu.github.io@main/Meiluo-Luogu/userstyles/", type: "cdn" },
     { name: "jsDelivr (GCore)", repoBase: "https://gcore.jsdelivr.net/gh/Meiluo-Luogu/Meiluo-Luogu.github.io@main/Meiluo-Luogu/userstyles/", type: "cdn" },
     { name: "jsDelivr (Fastly)", repoBase: "https://fastly.jsdelivr.net/gh/Meiluo-Luogu/Meiluo-Luogu.github.io@main/Meiluo-Luogu/userstyles/", type: "cdn" },
@@ -397,7 +395,7 @@ const PROXY_LIST = [
     { name: "jsdmirror.com", repoBase: "https://cdn.jsdmirror.com/gh/Meiluo-Luogu/Meiluo-Luogu.github.io@main/Meiluo-Luogu/userstyles/", type: "cdn" },
     { name: "staticfile.net", repoBase: "https://cdn.staticfile.net/gh/Meiluo-Luogu/Meiluo-Luogu.github.io@main/Meiluo-Luogu/userstyles/", type: "cdn" },
     { name: "GitHub Raw", repoBase: "https://raw.githubusercontent.com/Meiluo-Luogu/Meiluo-Luogu.github.io/main/Meiluo-Luogu/userstyles/", type: "raw" },
-    { name: "bgithub.xyz", repoBase: "https://bgithub.xyz/Meiluo-Luogu/Meiluo-Luogu.github.io/blob/main/Meiluo-Luogu/userstyles/", type: "bgithub" }  // 注意 bgithub 返回的是 HTML 页面，不适合直接下载，建议不加或特殊处理
+    { name: "bgithub.xyz", repoBase: "https://bgithub.xyz/Meiluo-Luogu/Meiluo-Luogu.github.io/blob/main/Meiluo-Luogu/userstyles/", type: "bgithub" }
 ];
 
         let results = [];           // 存储每个节点的完整信息
